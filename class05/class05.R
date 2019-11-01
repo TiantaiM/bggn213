@@ -1,3 +1,11 @@
+#' ---
+#' title: "class05:data visulation and exploration in R"
+#' output: github_document
+#' ---
+
+
+
+
 # Class 5 Data visualization
 ?rnorm
 x <- rnorm(1000)
