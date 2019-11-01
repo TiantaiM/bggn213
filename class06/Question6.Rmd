@@ -1,0 +1,65 @@
+---
+title: "Question6"
+author: "tiantaima"
+date: "10/18/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(bio3d)
+s1 <- read.pdb("4AKE") # kinase with drug 
+s2 <- read.pdb("1AKE") # kinase no drug 
+s3 <- read.pdb("1E4Y") # kinase with drug
+
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA") 
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA") 
+s3.chainA <- trim.pdb(s1, chain="A", elety="CA")
+
+s1.b <- s1.chainA$atom$b 
+s2.b <- s2.chainA$atom$b 
+s3.b <- s3.chainA$atom$b
+
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor") 
+points(s2.b, type = "l", col = "blue", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor") 
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+
+hc <- hclust( dist( rbind(s1.b, s2.b, s3.b) ) ) 
+plot(hc)
+```
+
+```{r}
+P_D_interaction <- function(pdb_id, chain_id)
+  { library(bio3d)
+  # input the pdb_id
+  s <- read.pdb(pdb_id)
+  # input the chain_id
+  s.chain <- trim.pdb(s, chain = chain_id, elety = "CA")
+  s.b <- s.chain$atom$b
+  # create the Bfactor plot
+  plotb3(s.b, sse=s.chain, typ="l", ylab="Bfactor")
+}
+
+P_D_interaction("5E75", "A")
+P_D_interaction("5E76", "A")
+```
+
+
+
+```{r}
+P_D_interaction("4AKE", "B")
+P_D_interaction("1E4Y", "B")
+```
+
+
+
+
+
+
+
+
+

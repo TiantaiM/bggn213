@@ -1,0 +1,65 @@
+---
+title: "hw_question6_tiantai"
+author: "tiantaima"
+date: "10/24/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Input one pdbid, specify which chain to analyze and what kind of atom to analyze, this function will generate one B-factor graph. 
+
+P_D_interaction <- function(pdb_id, chain_id, elety_id)
+  { library(bio3d)
+  
+  # input the pdb_id
+  s <- read.pdb(pdb_id)
+  
+  # input the chain_id, assign the atom Bfactor to a new vector
+  s.chain <- trim.pdb(s, chain = chain_id, elety = elety_id)
+  s.b <- s.chain$atom$b
+  
+  # create the Bfactor plot. The output will be an Bfactor-residues plot
+  plotb3(s.b, sse=s.chain, typ="l", ylab="Bfactor")
+}
+
+#Test function with random protein
+#Apo structure of a SusD-like protein
+P_D_interaction("5E75", "A", "CA") 
+#The same SusD-like protein with substrate
+P_D_interaction("5E76", "A", "CA")
+```
+
+```{r}
+# This function can plot Bfactor of two protein in the same graph
+# Input pdbid, chain and atom information. Also input what color for each proetin
+P_D_plot <- function(pdb_id1, chain_id1, elety_id1, col_1, pdb_id2, chain_id2, elety_id2, col_2){
+  library(bio3d)
+  # Read two pdbid
+  s1 <- read.pdb(pdb_id1)
+  s2 <- read.pdb(pdb_id2)
+  
+  # Select the chain and atoms in the two pdbid
+  s.chain1 <- trim.pdb(s1, chain = chain_id1, elety = elety_id1)
+  s.chain2 <- trim.pdb(s2, chain = chain_id2, elety = elety_id2)
+  
+  # Assign the Bfactor information to new vectors
+  s.b1 <- s.chain1$atom$b
+  s.b2 <- s.chain2$atom$b
+  
+  # Co-plot two proteins 
+  plotb3(s.b1, sse=s.chain1, typ="l", ylab="Bfactor", col=col_1)
+  points(s.b2, type = "l", col=col_2, ylab="Bfactor")
+}
+
+# test with apo SusD and SusD with substrate
+P_D_plot("5E76", "A", "CA", "black", "5E75", "A", "CA", "red")
+```
+
+
+
+
+
