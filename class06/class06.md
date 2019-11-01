@@ -182,7 +182,7 @@ s1 <- read.pdb("4AKE")
     ##   Note: Accessing on-line PDB file
 
     ## Warning in get.pdb(file, path = tempdir(), verbose = FALSE): /var/folders/
-    ## bw/xb3svg3j38vgwgnpqn10wh700000gn/T//RtmpEm4CeU/4AKE.pdb exists. Skipping
+    ## bw/xb3svg3j38vgwgnpqn10wh700000gn/T//RtmpGxYzHM/4AKE.pdb exists. Skipping
     ## download
 
 ``` r
