@@ -1,0 +1,255 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup Bioconductor DESeq2
+
+```{r eval=FALSE}
+install.packages("BiocManager")
+BiocManager::install()
+BiocManager::install("DESeq2")
+```
+
+## Import data for today's class 
+
+```{r}
+counts <- read.csv("airway_scaledcounts.csv", stringsAsFactors = FALSE)
+metadata <- read.csv("airway_metadata.csv", stringsAsFactors = F)
+```
+
+
+## Have a look 
+
+```{r}
+head(counts)
+```
+
+## How many genes are in this dataset? 
+
+```{r}
+nrow(counts)
+```
+
+## How many experiments? 
+
+```{r}
+ncol(counts)-1
+```
+
+
+Let make sure metadata id col match the colnames of the counts 
+
+```{r}
+colnames(counts)[-1]
+metadata$id
+```
+
+```{r}
+colnames(counts)[-1]==metadata$id
+# or use all(), the all()function is useful for looking for an arrary of logicals 
+all(colnames(counts)[-1]==metadata$id)
+```
+
+## Analysis : compare the control to the drug treated
+
+First we need to find the columns of our couontData athat are control and then finf their mean 
+
+```{r}
+metadata$dex=="control"
+```
+
+```{r}
+control.id <-metadata[metadata$dex=="control",]$id
+
+```
+
+focus on the counts for control experiment: 
+```{r}
+head(counts[,control.id])
+```
+
+Mean counts for control experiemnt
+
+```{r}
+control.mean <- rowSums(counts[,control.id])/length(control.id)
+names(control.mean) <- counts$ensgene
+```
+
+
+
+
+
+Then we analyze the treated columns: 
+
+```{r}
+treated.id <- metadata[metadata$dex=="treated", ]$id
+```
+
+```{r}
+head(counts[,treated.id])
+```
+
+
+
+```{r}
+treated.mean <- rowSums(counts[,treated.id])/length(treated.id)
+names(treated.mean) <- counts$ensgene
+```
+
+
+Lets store them together: 
+
+```{r}
+meancounts <- data.frame(control.mean, treated.mean)
+```
+
+Plot control VS. treated: 
+
+```{r}
+plot(meancounts$control.mean, meancounts$treated.mean)
+```
+
+Good case of a log plot:
+
+```{r}
+plot(meancounts$control.mean, log2(meancounts$treated.mean))
+```
+
+
+
+## Fold change
+```{r}
+meancounts$log2fc <-log2(meancounts[,"treated.mean"]/meancounts[,"control.mean"])
+head(meancounts)
+```
+
+There are a couple of “weird” results. Namely, the NaN ("not a number") and -Inf (negative infinity) results.
+
+The NaN is returned when you divide by zero and try to take the log. The -Inf is returned when you try to take the log of zero. It turns out that there are a lot of genes with zero expression. Let’s filter our data to remove these genes. Again inspect your result (and the intermediate steps) to see if things make sense to you
+
+```{r}
+# Test for finding 0 entries
+x <- data.frame(happy=c(5,6,0,0), sad=c(0,5,5,0))
+x
+x==0
+```
+
+```{r}
+which(x==0)
+which(x==0, arr.ind = T)
+```
+
+Focus on the rows only have zero entries: 
+```{r}
+dd<-unique(which(x==0, arr.ind = T))
+dd      
+inds <- unique(which(x==0, arr.ind = T)[,1])
+inds
+x[-inds,]
+```
+
+In the gene dataset: 
+
+```{r}
+to.rm <- unique(which(meancounts[,1:2]==0, arr.ind=T)[,1])
+mycounts <- meancounts[-to.rm,]
+head(mycounts)
+```
+
+
+
+
+```{r}
+up.ind <- mycounts$log2fc > 2
+down.ind <- mycounts$log2fc < (-2)
+```
+
+```{r}
+sum(up.ind)
+sum(down.ind)
+```
+
+
+
+```{r}
+library("AnnotationDbi")
+library("org.Hs.eg.db")
+```
+## Annotation
+
+see what is avaliable:
+
+```{r}
+columns(org.Hs.eg.db)
+```
+
+```{r}
+mycounts$symbol <- mapIds(org.Hs.eg.db,
+                     keys=row.names(mycounts), # Our genenames
+                     keytype="ENSEMBL",        # The format of our genenames
+                     column="SYMBOL",          # The new format we want to add
+                     multiVals="first")
+```
+
+```{r}
+head(mycounts)
+```
+
+# DESeq2 analysis:
+
+```{r}
+library(DESeq2)
+```
+
+set up our object for DESeq analysis
+```{r}
+dds <- DESeqDataSetFromMatrix(countData=counts, 
+                              colData=metadata, 
+                              design=~dex, 
+                              tidy=TRUE)
+dds
+```
+
+```{r}
+dds
+```
+
+
+```{r}
+dds <- DESeq(dds)
+```
+
+```{r}
+res <- results(dds)
+res
+```
+
+
+# Volcono plot
+
+```{r}
+plot(res$log2FoldChange,res$padj)
+```
+
+```{r}
+plot(res$log2FoldChange,-log(res$padj))
+```
+
+
+```{r}
+mycols<- rep("gray",length(res$padj))
+mycols[abs(res$log2FoldChange<2)]="blue"
+mycols[(res$log2FoldChange < 0.05) ]="gray"
+plot(res$log2FoldChange,-log(res$padj),col=mycols)
+```
+
+
+
+
+
+

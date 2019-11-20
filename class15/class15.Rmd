@@ -1,0 +1,209 @@
+---
+title: "class15"
+author: "tiantaima"
+date: "11/15/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## import the data
+
+```{r}
+metaFile <- "data/GSE37704_metadata.csv"
+countFile <- "data/GSE37704_featurecounts.csv"
+```
+
+## take a peak at the mega dta
+
+```{r}
+colData = read.csv("GSE37704_metadata.csv", row.names=1)
+head(colData)
+colData
+```
+
+```{r}
+countData = read.csv("GSE37704_featurecounts.csv", row.names=1)
+head(countData)
+```
+
+```{r}
+# remove the first column in countdata
+countData <- countData[,-1]
+head(countData)
+```
+
+## Filter count data where you have 0 read count across all samples.
+```{r}
+rowsum <- rowSums(countData)
+rowsum
+countData <- countData[rowsum>0,]
+countData
+nrow(countData)
+```
+
+## PCA analysis for the dataset
+The first analysis is always to plot the data but here we have more than 15000 genes
+
+```{r}
+pc <- prcomp(t(countData))
+summary(pc)
+plot(pc)
+head(pc)
+```
+
+
+## plot pc2~pc1
+
+```{r}
+mycols <- c(rep("blue",3), rep("red",3))
+mycols
+plot(pc$x[,1:2], col=mycols)
+```
+
+
+
+## DE analysis
+
+```{r}
+library(DESeq2)
+dds = DESeqDataSetFromMatrix(countData=countData,
+                             colData=colData,
+                             design=~condition)
+dds = DESeq(dds)
+```
+
+
+```{r}
+res <- results(dds)
+res
+summary(res)
+```
+
+
+
+## Make the volcono plot 
+
+```{r}
+plot( res$log2FoldChange, -log(res$padj) )
+```
+
+
+```{r}
+# Make a color vector for all genes
+mycols <- rep("gray", nrow(res) )
+mycols
+# Color red the genes with absolute fold change above 2
+mycols[ abs(res$log2FoldChange) > 2 ] <- "red"
+mycols
+# Color blue those with adjusted p-value less than 0.01
+#  and absolute fold change more than 2
+inds <- (res$padj<0.01) & (abs(res$log2FoldChange) > 2 )
+mycols[ inds ] <- "blue"
+```
+
+
+```{r}
+plot( res$log2FoldChange, -log(res$padj), col= mycols, xlab="Log2(FoldChange)", ylab="-Log(P-value)" )
+```
+
+## Adding gene annotations
+
+```{r}
+library("AnnotationDbi")
+library("org.Hs.eg.db")
+
+#Use the mapIDs() function multiple times to add SYMBOL, ENTREZID and GENENAME annotation to our results by completing the code below.
+
+columns(org.Hs.eg.db)
+```
+
+```{r}
+res$symbol = mapIds(org.Hs.eg.db,
+                    keys= row.names(res), # where are your gene ids
+                    keytype="ENSEMBL", # what format are your ids
+                    column= "SYMBOL",  # what 
+                    multiVals="first")
+
+res$entrez = mapIds(org.Hs.eg.db,
+                    keys= row.names(res), 
+                    keytype="ENSEMBL", 
+                    column= "ENTREZID",  
+                    multiVals="first")
+```
+
+```{r}
+head(res)
+```
+
+
+## pathway analysis 
+Install and load the packages
+```{r}
+#BiocManager::install( c("pathview", "gage", "gageData") )
+library(pathview)
+
+library(gage)
+library(gageData)
+```
+
+The main gage() function requires a named vector of fold changes, where the names of the values are the Entrez gene IDs.
+
+Note that we used the mapIDs() function above to obtain Entrez gene IDs (stored in res(dollor symbol)entrez) and we have the fold change results from DESeq2 analysis (stored in res$log2FoldChange).
+
+```{r}
+# Focus on signaling and metabolic pathways only
+data(kegg.sets.hs)
+data(sigmet.idx.hs)
+kegg.sets.hs = kegg.sets.hs[sigmet.idx.hs]
+# Examine the first 3 pathways
+head(kegg.sets.hs, 3)
+```
+
+
+```{r}
+foldchanges = res$log2FoldChange
+names(foldchanges) = res$entrez
+head(foldchanges)
+```
+
+
+```{r}
+# Get the results
+keggres = gage(foldchanges, gsets=kegg.sets.hs)
+```
+
+```{r}
+attributes(keggres)
+```
+
+
+Let's look at the down-regulated pathway first
+
+```{r}
+keggres$less
+```
+
+```{r}
+# Look at the first few down (less) pathways
+head(keggres$less)
+```
+
+
+## Now, let's try out the pathview() function from the pathview package to make a pathway plot with our RNA-Seq expression results shown in color.
+
+```{r}
+pathview(gene.data=foldchanges, pathway.id="hsa04110")
+```
+
+![My first pathway](./hsa04110.pathview.png)
+
+
+
+
+
+
+
+
