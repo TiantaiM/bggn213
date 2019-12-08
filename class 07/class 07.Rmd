@@ -1,0 +1,76 @@
+---
+title: "Class 7 R function and packages \"
+author: "tiantaima"
+date: "10/23/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# revisit the function from the last time
+```{r}
+source("http://tinyurl.com/rescale-R")
+```
+
+# let's try rescale() from last time
+```{r}
+rescale(1:10)
+rescale(c(2,3,56,NA))
+```
+
+
+
+```{r}
+x <- c( NA, 2, NA, 3, NA) 
+y<-c(NA,3,NA,3, 4)
+is.na(x)
+both_na <- function(x,y){
+  sum(is.na(x) & is.na(y))
+}
+
+both_na(x,y)
+```
+
+
+```{r}
+ x <- c(NA, NA, NA)
+y1 <- c( 1, NA, NA)
+y2 <- c( 1, NA, NA, NA)
+both_na(x, y2)
+```
+
+
+```{r}
+both_na2 <- function(x,y){
+  if (length(x) != length(y)){
+    stop("Make your vecter length same")
+  }
+  sum(is.na(x) & is.na(y))
+}
+
+
+```
+
+```{r}
+s1 <- c(100, 100, 100, 100, 100, 100, 100, 90)
+s2 <- c(100, NA, 90, 90, 90, 90, 97, 80)
+s3 <- c(100, NA, NA, NA)
+
+grade <- function (x,y){
+  mean_x <- mean(x[-which.min(x)])
+  mean_y <- sum(y[-which.min(y)],na.rm=T)/(length(y)-1)
+  print(mean_x)
+  print(mean_y)
+}
+
+grade(s1,s3)
+```
+
+```{r}
+library("rmarkdown")
+```
+
+
+
