@@ -1,0 +1,63 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub Documents
+
+```{r}
+read.csv("Data Export Summary.csv")
+```
+```{r}
+#determine the percentage of structures solved by X-Ray and Electron Microscopy
+PDB_summary<-read.csv("Data Export Summary.csv")
+sum(PDB_summary$Total)
+PDB_summary$Total
+PDB_summary$Experimental.Method
+
+X_ray <- PDB_summary$Total/sum(PDB_summary$Total)*100
+X_ray
+round(X_ray, 2)
+```
+
+```{r}
+#determine what proportion of structures are protein
+protein_por<-PDB_summary$Proteins/sum(PDB_summary$Total)*100
+protein_por
+```
+
+```{r}
+library(bio3d)
+pdb <- read.pdb("1hsg")
+pdb
+```
+
+```{r}
+pdb$atom
+pdb$atom[1,]
+aa321(pdb$atom[pdb$calpha,"resid"])
+```
+
+```{r}
+select <- atom.select(pdb, "protein", value=TRUE)
+select
+coord <- write.pdb(select,"coord.pdb")
+coord
+```
+
+```{r}
+#install.packages(bio3d.view)
+#library(bio3d.view)
+#view(select)
+```
+
+```{r}
+modes <- nma(pdb)
+m7 <- mktrj(modes,
+mode=7, file="mode_7.pdb")
+```
+
