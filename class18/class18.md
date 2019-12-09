@@ -1,4 +1,4 @@
-class18
+Class18
 ================
 
 ## The GenomicDataCommon R packages

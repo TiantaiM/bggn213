@@ -1,5 +1,5 @@
 ---
-title: "class18"
+title: "Class18"
 output: github_document
 ---
 
