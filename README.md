@@ -15,7 +15,7 @@ Contents:
 
 -Class11 [Structural Bioinformatics (Part 1)](https://github.com/TiantaiM/bggn213/blob/master/class11/class11.md)
 
--Class12 [Bioinformatics in drug discovery and design]
+-Class12 Bioinformatics in drug discovery and design: Refer to how to use VMD in class website!
 
 -Class13 [Genome informatics and high throughput sequencing (Part 1) ]
 
