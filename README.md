@@ -1,5 +1,5 @@
 # Bioinformatics Class
-This is my work from [BGGN213 at UC San Diego](http://mounttai.weebly.com/uploads/5/9/2/7/59273993/9646289.png?155).
+This is my work from [BGGN213 at UC San Diego](https://bioboot.github.io/bggn213_F19/).
 
 Contents:
 
