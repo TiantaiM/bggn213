@@ -17,9 +17,9 @@ Contents:
 
 -Class11 [Structural Bioinformatics (Part 1)](https://github.com/TiantaiM/bggn213/blob/master/class11/class11.md)
 
--Class12 Bioinformatics in drug discovery and design: Refer to how to use VMD in class website!
+-Class12 Bioinformatics in drug discovery and design: [Refer to how to use VMD in class website!](https://bioboot.github.io/bggn213_F19/class-material/lab-12-bggn213.pdf)
 
--Class13 Genome informatics and high throughput sequencing (Part 1): Refer to class website! 
+-Class13 Genome informatics and high throughput sequencing (Part 1): [Refer to class website!](https://bioboot.github.io/bggn213_F19/class-material/lab-13-bggn213.pdf)
 
 -Class14 [Transcriptomics and the analysis of RNA-Seq data](https://github.com/TiantaiM/bggn213/blob/master/class14/class14.md)
 
