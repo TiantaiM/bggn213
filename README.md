@@ -3,6 +3,8 @@ This is my work from [BGGN213 at UC San Diego](https://bioboot.github.io/bggn213
 
 Contents:
 
+-Class01-04 Please refer to class website for further information! 
+
 -Class05 [R graphics](https://github.com/TiantaiM/bggn213/blob/master/class05/class05.md) 
 
 -Class06 [R functions](https://github.com/TiantaiM/bggn213/blob/master/class06/class06.md)
