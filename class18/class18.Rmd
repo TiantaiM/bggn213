@@ -1,0 +1,35 @@
+---
+title: "class18"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The GenomicDataCommon R packages
+
+```{r}
+library(GenomicDataCommons)
+library(TCGAbiolinks)
+library(maftools)
+```
+
+```{r}
+# check on GDC status
+status()
+```
+
+
+
+```{r}
+MHC <- read.csv("~/Downloads/result.csv")
+MHC
+```
+
+
+```{r}
+ 
+```
+
+
