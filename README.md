@@ -9,7 +9,15 @@ Contents:
 
 -Class08 [Introduction to machine learning for Bioinformatics (Part 1)](https://github.com/TiantaiM/bggn213/blob/master/Class08/class08.md)
 
--Class09 [Unsupervised learning mini-project](https://github.com/TiantaiM/bggn213/blob/master/Class09/class06.Rmd)
+-Class09 [Unsupervised learning mini-project](https://github.com/TiantaiM/bggn213/blob/master/Class09/class09.md)
+
+-Class10 [Find_a_gene_project](https://github.com/TiantaiM/bggn213/blob/master/Find_a_gene_project/BGGN213_F19_t2ma.pdf)
+
+-Class11 [Structural Bioinformatics (Part 1)](https://github.com/TiantaiM/bggn213/blob/master/class11/class11.md)
+
+-Class12 [Bioinformatics in drug discovery and design]
+
+-Class13 [Genome informatics and high throughput sequencing (Part 1) ]
 
 
 
