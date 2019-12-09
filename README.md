@@ -1,5 +1,5 @@
 # Bioinformatics Class
-This is my work from [BGGN213 at UC San Diego](https://images.app.goo.gl/943pJSutQQbRnX5GA).
+This is my work from [BGGN213 at UC San Diego](http://www.tsxt.sdu.edu.cn/swf/v1_2.png).
 
 Contents:
 
