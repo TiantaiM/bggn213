@@ -17,7 +17,11 @@ Contents:
 
 -Class12 Bioinformatics in drug discovery and design: Refer to how to use VMD in class website!
 
--Class13 [Genome informatics and high throughput sequencing (Part 1) ]
+-Class13 Genome informatics and high throughput sequencing (Part 1): Refer to class website! 
+
+-Class14 [Transcriptomics and the analysis of RNA-Seq data](https://github.com/TiantaiM/bggn213/blob/master/class14/class14.md)
+
+-Class15 [Genome annotation and the interpretation of gene lists](https://github.com/TiantaiM/bggn213/blob/master/class15/class15.html)
 
 
 
