@@ -25,7 +25,7 @@ Contents:
 
 -Class16 [Biological network analysis](https://github.com/TiantaiM/bggn213/blob/master/class16/class16.Rmd)
 
--Class17 Essential UNIX for bioinformatics: Refer class website for 21 essential commands for UNIX!
+-Class17 Essential UNIX for bioinformatics: Refer to class website for 21 essential commands for UNIX!
 
 -Class18 [Cancer genomics]()
 
