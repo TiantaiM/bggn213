@@ -29,6 +29,6 @@ Contents:
 
 -Class17 Essential UNIX for bioinformatics: [Refer to class website for 21 essential commands for UNIX!](https://bioboot.github.io/bggn213_F19/class-material/17_blast-01/)
 
--Class18 [Cancer genomics]()
+-Class18 [Cancer genomics](https://github.com/TiantaiM/bggn213/blob/master/class18/class18.md)
 
 
