@@ -4756,7 +4756,7 @@ summary(wisc.pr)
 plot(wisc.pr$x, col=diagnosis)
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 x <- summary(wisc.pr)
@@ -4827,14 +4827,14 @@ which(x$importance[3,]>0.7)[1]
 biplot(wisc.pr)
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 # plot pc1 vs pc3
 plot(wisc.pr$x[,1], wisc.pr$x[,3], col = diagnosis, ylab = "PC3", xlab = "PC1")
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ## Calculate variance of each component
 
@@ -4858,7 +4858,7 @@ wisc.hclust <- hclust(dist(data.dist))
 plot(wisc.hclust)
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 a.hclust <- hclust(dist(wisc.pr$x[,1:3]))
@@ -4866,7 +4866,7 @@ plot(a.hclust)
 abline(h=21, col="red", lty=2)
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
 
 ``` r
 wisc.hclust.clusters<-cutree(a.hclust,k=2)
@@ -4894,13 +4894,13 @@ table(grps, diagnosis)
 plot(wisc.pr$x[,1:2], col=grps)
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 plot(wisc.pr$x[,1:2], col=diagnosis)
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
 
 ``` r
 g <- as.factor(grps)
@@ -4921,7 +4921,7 @@ levels(g)
 plot(wisc.pr$x[,1:2], col=g)
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-14-3.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-14-3.png)<!-- -->
 
 ``` r
 #url <- "new_samples.csv"
@@ -4956,4 +4956,4 @@ points(npc[,1], npc[,2], col="blue", pch=16, cex=3)
 text(npc[,1], npc[,2], c(1,2), col="white")
 ```
 
-![](class06_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](class09_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
