@@ -3546,8 +3546,8 @@ modes <- nma(pdb)
     ## Warning in nma.pdb(pdb): Possible multi-chain structure or missing in-structure residue(s) present
     ##   Fluctuations at neighboring positions may be affected.
 
-    ##  Building Hessian...     Done in 0.025 seconds.
-    ##  Diagonalizing Hessian...    Done in 0.273 seconds.
+    ##  Building Hessian...     Done in 0.028 seconds.
+    ##  Diagonalizing Hessian...    Done in 0.285 seconds.
 
 ``` r
 m7 <- mktrj(modes,

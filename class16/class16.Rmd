@@ -36,3 +36,32 @@ knitr::include_graphics("./demo.png")
 ```
 
 ## swithc styles
+
+```{r}
+setVisualStyle("Marquee")
+```
+
+
+```{r}
+fig <- exportImage(filename="demo_marquee", type="png", height=350)
+knitr::include_graphics("./demo_marquee.png")
+```
+
+
+```{r}
+styles <- getVisualStyleNames()
+styles
+#setVisualStyle(styles[13])
+#setVisualStyle(styles[18])
+```
+
+```{r}
+plot(g)
+```
+
+
+
+
+
+
+
